@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlexCord</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar glass">
+        <div>
+          <div class="brand-row">
+            <div class="brand-icon">F</div>
+            <div>
+              <p class="eyebrow">Private group chat</p>
+              <h1>FlexCord</h1>
+            </div>
+          </div>
+
+          <nav class="nav-list">
+            <button class="nav-btn active" data-view="chat">💬 Chat</button>
+            <button class="nav-btn" data-view="calendar">📅 Calendar</button>
+            <button class="nav-btn" data-view="members">👥 Members</button>
+          </nav>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="user-card" id="currentUserCard">
+            <div class="avatar placeholder">F</div>
+            <div>
+              <strong>Guest</strong>
+              <p id="roomTag">No room</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-panel glass">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Room</p>
+            <h2 id="roomName">Loading…</h2>
+          </div>
+          <div class="topbar-actions">
+            <button id="copyInviteBtn" class="soft-btn">Invite link</button>
+          </div>
+        </header>
+
+        <section id="chatView" class="view active view-chat">
+          <div id="messages" class="messages"></div>
+          <div class="typing-row" id="typingIndicator"></div>
+          <form id="messageForm" class="composer">
+            <input id="messageInput" type="text" placeholder="Write a message…" autocomplete="off" />
+            <input id="imageInput" type="url" placeholder="Image / GIF URL" />
+            <button type="submit" class="primary-btn">Send</button>
+          </form>
+        </section>
+
+        <section id="calendarView" class="view">
+          <div class="panel-block">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Shared calendar</p>
+                <h3>Upcoming plans</h3>
+              </div>
+            </div>
+
+            <form id="eventForm" class="event-form">
+              <input id="eventTitle" type="text" placeholder="Event title" required />
+              <input id="eventDate" type="date" required />
+              <input id="eventTime" type="time" required />
+              <button type="submit" class="primary-btn">Add event</button>
+            </form>
+
+            <div id="eventsList" class="events-list"></div>
+          </div>
+        </section>
+
+        <section id="membersView" class="view">
+          <div class="panel-block">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Online in room</p>
+                <h3>Members</h3>
+              </div>
+            </div>
+            <div id="membersList" class="members-list"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="joinModal">
+      <div class="modal glass">
+        <p class="eyebrow">Join room</p>
+        <h2>Welcome to FlexCord</h2>
+        <p class="muted">Enter only your name. No profile picture, no password, no account.</p>
+
+        <form id="joinForm" class="join-form">
+          <input id="displayName" type="text" placeholder="Your name" maxlength="24" required />
+          <button type="submit" class="primary-btn wide">Enter chat</button>
+        </form>
+      </div>
+    </div>
+
+    <template id="messageTemplate">
+      <article class="message-card">
+        <img class="avatar-img" alt="avatar" />
+        <div class="message-content">
+          <div class="message-meta">
+            <strong class="message-user"></strong>
+            <span class="message-time"></span>
+          </div>
+          <p class="message-text"></p>
+          <img class="message-image hidden" alt="attachment" />
+          <div class="reaction-row">
+            <button class="reaction-btn" data-reaction="❤️">❤️</button>
+            <button class="reaction-btn" data-reaction="😂">😂</button>
+            <button class="reaction-btn" data-reaction="🔥">🔥</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
